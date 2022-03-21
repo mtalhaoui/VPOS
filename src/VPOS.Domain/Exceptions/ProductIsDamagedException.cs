@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace VPOS.Application.Common.Exceptions
+﻿namespace VPOS.Domain.Exceptions
 {
-    public class ProductIsDamagedException : Exception
+    public class ProductIsDamagedException : VPOSException
     {
         public ProductIsDamagedException(string name) : base($"Product '{name}' is damaged and can\'t be sold.")
         {

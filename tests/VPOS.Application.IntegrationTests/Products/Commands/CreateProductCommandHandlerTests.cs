@@ -31,7 +31,7 @@ namespace VPOS.Application.IntegrationTests.Products.Commands
         [Fact]
         public async Task HandleCreateProductReturnsTrue()
         {
-            _createProductCommand = ObjectMother.NewCreateProductCommand();
+            _createProductCommand = new CreateProductCommand("Product 1", "1234567890123", "Description 1", "1kg");
             var result = await _createProductCommandHandler.Handle(_createProductCommand, CancellationToken.None);
 
             result.Success.Should().BeTrue();

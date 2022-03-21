@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using VPOS.Domain.Enums;
+using VPOS.Domain.Exceptions;
 
 namespace VPOS.Domain.Entities
 {
@@ -18,6 +19,20 @@ namespace VPOS.Domain.Entities
         public void ChangeStatus(ProductStatus status)
         {
             Status = status;
+        }
+
+        public void SellProduct()
+        {
+            if (Status == ProductStatus.Sold)
+            {
+                throw new ProductAlreadySoldException(Name);
+            }
+            else if (Status == ProductStatus.Damaged)
+            {
+                throw new ProductIsDamagedException(Name);
+            }
+
+            Status = ProductStatus.Sold;
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using VPOS.Domain.Entities;
 using VPOS.Domain.Enums;
@@ -17,7 +15,7 @@ namespace VPOS.Infrastructure.Repositories
 
         public ProductRepository(ApplicationDbContext context) => _context = context;
 
-        public async Task<int> GetProductCountByStatusAsync(ProductStatus status) => await _context.Products.Where(q => q.Status == status).CountAsync();
+        public async Task<int> GetProductCountByStatusAsync(ProductStatus status) => await _context.Products.CountAsync(q => q.Status == status);
 
         public async Task<Product> GetAsync(Guid id) => await _context.Products.FindAsync(id);
 

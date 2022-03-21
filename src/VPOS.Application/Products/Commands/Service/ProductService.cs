@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using VPOS.Application.Common.Exceptions;
 using VPOS.Application.Products.Commands.ChangeProductStatus;
 using VPOS.Application.Products.Commands.SellProduct;
 using VPOS.Application.Products.Commands.Service.Interface;
 using VPOS.Domain.Entities;
-using VPOS.Domain.Enums;
 using VPOS.Domain.Exceptions;
 using VPOS.Domain.Repositories;
 
@@ -35,16 +33,7 @@ namespace VPOS.Application.Products.Commands.Service
             if (product == null)
                 throw new ProductNotFoundException(command.ProductId);
 
-            if (product.Status == ProductStatus.Sold)
-            {
-                throw new ProductAlreadySoldException(product.Name);
-            }
-            else if (product.Status == ProductStatus.Damaged)
-            {
-                throw new ProductIsDamagedException(product.Name);
-            }
-
-            product.ChangeStatus(ProductStatus.Sold);
+            product.SellProduct();
 
             return await _repository.UpdateAsync(product);
         }
